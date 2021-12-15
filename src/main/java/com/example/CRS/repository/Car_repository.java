@@ -1,12 +1,19 @@
 package com.example.CRS.repository;
 
 import com.example.CRS.model.Car_Hash;
+import com.firstexample.demo.model.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+
+@Repository
 public interface Car_repository extends JpaRepository<Car_Hash, String>{
-    Car_Hash getCar_HashById_hash(String hash);
-    Car_Hash getCar_HashById_hashAndEmail(String hash,String email);
 
+    @Query("select ch from Car_Hash ch where ch.id_hash= :id ")
+    Collection<Car_Hash> getCar_HashByHash(@Param("id")long hash);
 
 
 }

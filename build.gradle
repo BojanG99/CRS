@@ -30,7 +30,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
-	implementation name: 'firstproject'
 	implementation name: 'ECS'
 	// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.1.Final'

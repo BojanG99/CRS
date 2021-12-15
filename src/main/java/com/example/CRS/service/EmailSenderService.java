@@ -11,10 +11,18 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-
+@Service
 public class EmailSenderService {
     @Autowired
     private JavaMailSender mailSender;
+
+    public JavaMailSender getMailSender() {
+        return mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     public void sendSimpleEmail(String fromEmail,
                                 String toEmail,

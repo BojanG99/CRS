@@ -12,7 +12,7 @@ public class Car_Hash {
 
     @Id
     @Column(name = "id")
-    private String id_hash;
+    private long id_hash;
 
     @Column(name="email")
     private String email;

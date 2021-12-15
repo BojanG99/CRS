@@ -9,7 +9,8 @@ import java.security.NoSuchAlgorithmException;
 public class Hash_Function {
 
     public String get_Hash(Car car){
-        String hash=car.toString()+car.getEngineType().toString()+car.getChassis().toString();
+        String hash=car.toString();
+
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(hash.getBytes());
@@ -18,6 +19,15 @@ public class Hash_Function {
         }
         catch (NoSuchAlgorithmException e){}
         return null;
+    }
+    public long get_Hash_long(Car car){
+        String toString=car.toString();
+        long hash = 7;
+        for (int i = 0; i < toString.length(); i++) {
+            hash = hash*31 + toString.charAt(i);
+        }
+    return hash;
+
     }
 
 }
