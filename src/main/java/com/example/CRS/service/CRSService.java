@@ -30,12 +30,12 @@ public class CRSService {
 
     @KafkaListener(topics = "car_consumer")
     public void getFromKafka(CarJobDTO carjob) throws UnsupportedEncodingException {
-        if(check_for_duplicates(carjob.getCar(),carjob.getJob())){
+        if(check_for_duplicates(carjob.getCar(),carjob.getJob())==false){
 
             //send mail to user
-        email_sender.sendSimpleEmail(from_email,carjob.getJob().getEmail(), new EMailBuilder().make_Body(carjob.getCar()),"Novi automobili");
-        System.out.println("poslato "+carjob.getJob().getEmail());
-        System.out.println("poruka je" + new EMailBuilder().make_Body(carjob.getCar()));
+            email_sender.sendSimpleEmail(from_email,carjob.getJob().getEmail(), new EMailBuilder().make_Body(carjob.getCar()),"Novi automobili");
+            System.out.println("poslato "+carjob.getJob().getEmail());
+            System.out.println("poruka je" + new EMailBuilder().make_Body(carjob.getCar()));
             //add to database
             Car_Hash new_car_hash=new Car_Hash();
             long hash=new Hash_Function().get_Hash_long(carjob.getCar());
@@ -45,14 +45,13 @@ public class CRSService {
         }
         else{
             System.out.println("Nije poslato "+carjob.getJob().getEmail());
-            System.out.println("poruka je" + new EMailBuilder().make_Body(carjob.getCar()));
         }
     }
     public boolean check_for_duplicates(Car car, Job job){
         long hash=new Hash_Function().get_Hash_long(car);
-        Collection<Car_Hash> kolekcija=car_repository.getCar_HashByHash(hash);
-        if(kolekcija.size()==0)return true;
-        return false;
+        Collection<Car_Hash> carhash_collection=car_repository.getCar_HashByHash(hash,job.getEmail());
+        if(carhash_collection.size()==0)return false;
+        return true;
 
 
     }
